@@ -8,15 +8,17 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 //This is a class containing all logic for handling robot-relative Omni-Drive, decoupled from hardware and OpMode(s)
 //Adapted from OmniDrive_LinearOoMode
 public class OmniDriveController {
-    public static class DriveInput{
-        double driveInput, strafeInput, turnInput;
-        float speedCoefficient;
+    public static class DriveInput {
+        private final double drive;
+        private final double strafe;
+        private final double turn;
+        private final double speedCoefficient;
 
         public DriveInput(double driveInput, double strafeInput, double turnInput,
-                          float speedCoefficient){
-            this.driveInput = driveInput;
-            this.strafeInput = strafeInput;
-            this.turnInput = turnInput;
+                          double speedCoefficient) {
+            this.drive = driveInput;
+            this.strafe = strafeInput;
+            this.turn = turnInput;
             this.speedCoefficient = speedCoefficient;
         }
     }
@@ -50,16 +52,17 @@ public class OmniDriveController {
                 && Math.abs(yawError) <= RobotUtility.DESTINATION_ERROR_BUFFER;
     }
 
-    double leftFrontPower;
-    double rightFrontPower;
-    double leftBackPower;
-    double rightBackPower;
+    private final RobotHardware hardware;
+    private double leftFrontPower;
+    private double rightFrontPower;
+    private double leftBackPower;
+    private double rightBackPower;
 
-    public OmniDriveController(){
-
+    public OmniDriveController(RobotHardware hardware) {
+        this.hardware = hardware;
     }
 
-    public void moveRobot(double drive, double strafe, double turn, float speedMult){
+    public void moveRobot(double drive, double strafe, double turn, double speedMult) {
         DriveInput input = new DriveInput(drive, strafe, turn, speedMult);
         moveRobot(input);
     }
@@ -67,10 +70,10 @@ public class OmniDriveController {
         moveRobot(drive, strafe, turn, 1f);
     }
     public void moveRobot(DriveInput input) {
-        leftFrontPower  = input.driveInput + input.strafeInput + input.turnInput;
-        rightFrontPower = input.driveInput - input.strafeInput - input.turnInput;
-        leftBackPower   = input.driveInput - input.strafeInput + input.turnInput;
-        rightBackPower  = input.driveInput + input.strafeInput - input.turnInput;
+        leftFrontPower  = input.drive + input.strafe + input.turn;
+        rightFrontPower = input.drive - input.strafe - input.turn;
+        leftBackPower   = input.drive - input.strafe + input.turn;
+        rightBackPower  = input.drive + input.strafe - input.turn;
 
         // Normalize the values so no wheel power exceeds 100%
         // This ensures that the robot maintains the desired motion.
@@ -88,14 +91,13 @@ public class OmniDriveController {
         }
 
         //Ensure speedCoefficient is between 0 & 1
-        input.speedCoefficient = Math.min(1, input.speedCoefficient);
-        input.speedCoefficient = Math.max(0, input.speedCoefficient);
+        double speedCoefficient = Range.clip(input.speedCoefficient, 0, 1);
 
         // Send calculated power to wheels
-        RobotUtility.Hardware.leftFrontMotor.setPower(leftFrontPower * input.speedCoefficient);
-        RobotUtility.Hardware.rightFrontMotor.setPower(rightFrontPower * input.speedCoefficient);
-        RobotUtility.Hardware.leftBackMotor.setPower(leftBackPower * input.speedCoefficient);
-        RobotUtility.Hardware.rightBackMotor.setPower(rightBackPower * input.speedCoefficient);
+        hardware.leftFrontMotor.setPower(leftFrontPower * speedCoefficient);
+        hardware.rightFrontMotor.setPower(rightFrontPower * speedCoefficient);
+        hardware.leftBackMotor.setPower(leftBackPower * speedCoefficient);
+        hardware.rightBackMotor.setPower(rightBackPower * speedCoefficient);
     }
 
     public void printHeader(Telemetry telemetry) {

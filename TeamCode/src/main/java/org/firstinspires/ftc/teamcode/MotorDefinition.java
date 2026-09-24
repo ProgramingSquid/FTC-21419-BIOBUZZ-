@@ -3,26 +3,25 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class MotorDefinition{
-    public String key;
-    public DcMotorEx.Direction direction;
-    public boolean setMode;
-    public DcMotorEx motor;
+public final class MotorDefinition {
+    private final String hardwareName;
+    private final DcMotorEx.Direction direction;
+    private final boolean useEncoder;
 
-    public DcMotorEx setHardware(HardwareMap hardwareMap){
-        DcMotorEx hardware = hardwareMap.get(DcMotorEx.class, key);
+    public DcMotorEx configure(HardwareMap hardwareMap) {
+        DcMotorEx hardware = hardwareMap.get(DcMotorEx.class, hardwareName);
         hardware.setDirection(direction);
 
-        if(setMode)
+        if (useEncoder) {
             hardware.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        }
 
-        motor = hardware;
         return hardware;
     }
 
-    public MotorDefinition(String key, DcMotorEx.Direction direction, boolean setMode){
-        this.key = key;
+    public MotorDefinition(String hardwareName, DcMotorEx.Direction direction, boolean useEncoder) {
+        this.hardwareName = hardwareName;
         this.direction = direction;
-        this.setMode = setMode;
+        this.useEncoder = useEncoder;
     }
 }

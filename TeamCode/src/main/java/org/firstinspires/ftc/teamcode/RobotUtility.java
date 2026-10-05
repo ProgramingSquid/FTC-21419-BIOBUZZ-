@@ -26,25 +26,15 @@ public class RobotUtility {
     public static final double MAX_AUTO_SPEED = 1;
     public static final double MAX_AUTO_STRAFE = 1;
     public static final double MAX_AUTO_TURN = 1;
-    public static final float Conversion = 0.4f;
-    public static final float DEFAULT_SHOOT_POWER = 6000f * 0.525f * Conversion;
-    public static final float FAR_SHOOT_POWER = 6000f * 0.6f * Conversion;
 
-    public static final float FEEDER_ACTIVE_ANGLE = 0.415f;
-    public static final float FEEDER_REST_ANGLE = 0f;
-
+    /*public static final float Conversion = 0.4f;
+    public static final float DEFAULT_SHOOT_POWER = 6000f * 0.525f * Conversion;*/
     //Auto Multi-Shoot Configuration
     public static final int SHOOT_CYCLES = 3;
     public static final long SHOOT_FIRE_MS = 400; // ms to hold feeder in fire position
     public static final long SHOOT_REST_MS = 3000; // ms to wait between shots
     public static final int EXPOSURE = 6;
     public static final int CAM_GAIN = 100;
-    public final static int BLUE_GOAL_TAG_ID = 20;
-    public final static int RED_GOAL_TAG_ID = 24;
-
-    public final static int OBELISK_1_TAG_ID = 21;
-    public final static int OBELISK_2_TAG_ID = 22;
-    public final static int OBELISK_3_TAG_ID = 23;
 
     public static final float DEFAULT_SPEED_COEF = 0.5f;
     public static final float SLOW_SPEED_COEF = 0.25f;
@@ -52,10 +42,10 @@ public class RobotUtility {
 
     // Default MotorDefinition arrays for convenience
     public static final MotorDefinition[] DEFAULT_DRIVE_MOTOR_DEFINITIONS = new MotorDefinition[]{
-        new MotorDefinition(FRONT_LEFT_MOTOR, DcMotor.Direction.FORWARD, false),
-        new MotorDefinition(BACK_LEFT_MOTOR, DcMotor.Direction.REVERSE, false),
-        new MotorDefinition(FRONT_RIGHT_MOTOR, DcMotor.Direction.REVERSE, false),
-        new MotorDefinition(BACK_RIGHT_MOTOR, DcMotor.Direction.FORWARD, false)
+        new MotorDefinition(FRONT_LEFT_MOTOR, DcMotor.Direction.FORWARD, true),
+        new MotorDefinition(BACK_LEFT_MOTOR, DcMotor.Direction.REVERSE, true),
+        new MotorDefinition(FRONT_RIGHT_MOTOR, DcMotor.Direction.REVERSE, true),
+        new MotorDefinition(BACK_RIGHT_MOTOR, DcMotor.Direction.FORWARD, true)
     };
 
     /*public static final MotorDefinition[] DEFAULT_SHOOT_MOTOR_DEFINITIONS = new MotorDefinition[] {

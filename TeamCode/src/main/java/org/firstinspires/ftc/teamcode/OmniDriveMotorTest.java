@@ -38,6 +38,13 @@ public class OmniDriveMotorTest extends LinearOpMode {
                 telemetry.addData("back_left_drive", "%.2f", hardware.leftBackMotor.getPower());
                 telemetry.addData("front_right_drive", "%.2f", hardware.rightFrontMotor.getPower());
                 telemetry.addData("back_right_drive", "%.2f", hardware.rightBackMotor.getPower());
+
+                telemetry.addData("Velocity LF/RF", "%.0f / %.0f ticks/s",
+                        hardware.leftFrontMotor.getVelocity(),
+                        hardware.rightFrontMotor.getVelocity());
+                telemetry.addData("Velocity LB/RB", "%.0f / %.0f ticks/s",
+                        hardware.leftBackMotor.getVelocity(),
+                        hardware.rightBackMotor.getVelocity()); 
                 telemetry.update();
             }
         } finally {

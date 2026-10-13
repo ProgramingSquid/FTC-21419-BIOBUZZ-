@@ -4,18 +4,51 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class RobotUtility {
+// TELEOP Drive Settings______________________________________________________________________________
+    public static final float DEFAULT_SPEED_COEF = 0.5f;
+    public static final float SLOW_SPEED_COEF = 0.25f;
+    public static final float FAST_SPEED_COEF = 1.0f;
 
-    // Default motor and camera constants shared across opmodes
-    public static final String FRONT_LEFT_MOTOR = "front_left_drive";
-    public static final String BACK_LEFT_MOTOR = "back_left_drive";
-    public static final String FRONT_RIGHT_MOTOR = "front_right_drive";
-    public static final String BACK_RIGHT_MOTOR = "back_right_drive";
-
-    /*public static final String SHOOT_LEFT_MOTOR = "shootMotorLeft";
-    public static final String SHOOT_RIGHT_MOTOR = "shootMotorRight";*/
+//DRIVE MOTORS ____________________________________________________________________________________________
+    public static final MotorDefinition FRONT_LEFT_MOTOR = new MotorDefinition(
+            "front_left_drive",
+            DcMotor.Direction.FORWARD,
+            true
+    );
+    public static final MotorDefinition BACK_LEFT_MOTOR = new MotorDefinition(
+            "back_left_drive",
+            DcMotor.Direction.FORWARD,
+            true
+    );
+    public static final MotorDefinition FRONT_RIGHT_MOTOR = new MotorDefinition(
+            "front_right_drive",
+            DcMotor.Direction.FORWARD,
+            true
+    );
+    public static final MotorDefinition BACK_RIGHT_MOTOR = new MotorDefinition(
+            "back_right_drive",
+            DcMotor.Direction.FORWARD,
+            true
+    );
+//Shoot Hardware_____________________________________________________________
+    public static final MotorDefinition INTAKE_MOTOR = new MotorDefinition(
+            "intake",
+            DcMotor.Direction.FORWARD,
+            true
+    );
+    public static final String INTAKE2_SERVO = "intake_2"; //Servos are much simpler, most of the configuration can't be controlled by code
+    public static final MotorDefinition SHOOT_MOTOR = new MotorDefinition(
+            "shoot",
+            DcMotor.Direction.FORWARD,
+            true
+    );
+//AUTO Settings _____________________________________________________________________________________________________
     public static final String DEFAULT_WEBCAM_NAME = "Webcam 1";
+    /*    public static final int EXPOSURE = 6; //Uncomment when we create AUTO
+    public static final int CAM_GAIN = 100;*/
 
-    // Auto-drive / AprilTag related defaults (moved from OpMode)
+
+    //Auto-drive to April tag settings __________________________________________________________
     public static final double DEFAULT_DESIRED_DISTANCE = 12.0 * 4.2; //in inches (4.2ft)
 
     public static final double SPEED_GAIN = 0.6 / 25; // Ramp up to ___% power at a 25 inch error.   (0.___ / 25.0)
@@ -26,30 +59,5 @@ public class RobotUtility {
     public static final double MAX_AUTO_SPEED = 1;
     public static final double MAX_AUTO_STRAFE = 1;
     public static final double MAX_AUTO_TURN = 1;
-
-    /*public static final float Conversion = 0.4f;
-    public static final float DEFAULT_SHOOT_POWER = 6000f * 0.525f * Conversion;*/
-    //Auto Multi-Shoot Configuration
-    public static final int SHOOT_CYCLES = 3;
-    public static final long SHOOT_FIRE_MS = 400; // ms to hold feeder in fire position
-    public static final long SHOOT_REST_MS = 3000; // ms to wait between shots
-    public static final int EXPOSURE = 6;
-    public static final int CAM_GAIN = 100;
-
-    public static final float DEFAULT_SPEED_COEF = 0.5f;
-    public static final float SLOW_SPEED_COEF = 0.25f;
-    public static final float FAST_SPEED_COEF = 1.0f;
-
-    // Default MotorDefinition arrays for convenience
-    public static final MotorDefinition[] DEFAULT_DRIVE_MOTOR_DEFINITIONS = new MotorDefinition[]{
-        new MotorDefinition(FRONT_LEFT_MOTOR, DcMotor.Direction.FORWARD, true),
-        new MotorDefinition(BACK_LEFT_MOTOR, DcMotor.Direction.REVERSE, true),
-        new MotorDefinition(FRONT_RIGHT_MOTOR, DcMotor.Direction.REVERSE, true),
-        new MotorDefinition(BACK_RIGHT_MOTOR, DcMotor.Direction.FORWARD, true)
-    };
-
-    /*public static final MotorDefinition[] DEFAULT_SHOOT_MOTOR_DEFINITIONS = new MotorDefinition[] {
-            new MotorDefinition(SHOOT_LEFT_MOTOR, DcMotor.Direction.REVERSE, true),
-            new MotorDefinition(SHOOT_RIGHT_MOTOR, DcMotor.Direction.FORWARD, true)
-    };*/
+//______________________________________________________________________________
 }

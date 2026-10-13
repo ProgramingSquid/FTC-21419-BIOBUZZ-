@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
+import com.qualcomm.robotcore.robot.Robot;
 
 /** Looks up and configures the hardware used by the robot. */
 public final class RobotHardware {
@@ -9,18 +12,27 @@ public final class RobotHardware {
     public final DcMotorEx leftBackMotor;
     public final DcMotorEx rightFrontMotor;
     public final DcMotorEx rightBackMotor;
-   /* public final DcMotorEx shootLeftMotor;
-    public final DcMotorEx shootRightMotor;*/
+    public final DcMotorEx intakeMotor;
+    public final DcMotorEx  shootMotor;
+
+    public final Servo intakeStage2Sevor;
 
     public RobotHardware(HardwareMap hardwareMap) {
-        MotorDefinition[] driveMotors = RobotUtility.DEFAULT_DRIVE_MOTOR_DEFINITIONS;
-        //MotorDefinition[] shootingMotors = RobotUtility.DEFAULT_SHOOT_MOTOR_DEFINITIONS;
 
-        leftFrontMotor = driveMotors[0].configure(hardwareMap);
-        leftBackMotor = driveMotors[1].configure(hardwareMap);
-        rightFrontMotor = driveMotors[2].configure(hardwareMap);
-        rightBackMotor = driveMotors[3].configure(hardwareMap);
-        /*shootLeftMotor = shootingMotors[0].configure(hardwareMap);
-        shootRightMotor = shootingMotors[1].configure(hardwareMap);*/
+        //.configure() actually converts MotorDefinitions which just contain settings and parameters
+        //for motors into actual DcMotorEx hardware objects which can be used in code to tell the hardware when
+        //and how fast to run the motors.
+
+        leftFrontMotor  = RobotUtility.FRONT_LEFT_MOTOR.configure(hardwareMap);
+        leftBackMotor   = RobotUtility.BACK_LEFT_MOTOR.configure(hardwareMap);
+        rightFrontMotor = RobotUtility.FRONT_RIGHT_MOTOR.configure(hardwareMap);
+        rightBackMotor  = RobotUtility.BACK_RIGHT_MOTOR.configure(hardwareMap);
+
+        intakeMotor = RobotUtility.INTAKE_MOTOR.configure(hardwareMap);
+        shootMotor = RobotUtility.SHOOT_MOTOR.configure(hardwareMap);
+
+        //Again because servos are much simpler we can just do hardware acquisition and setup here...
+        //(This is what .configure looks like but for servos)
+        intakeStage2Sevor = hardwareMap.get(Servo.class, RobotUtility.INTAKE2_SERVO);
     }
 }

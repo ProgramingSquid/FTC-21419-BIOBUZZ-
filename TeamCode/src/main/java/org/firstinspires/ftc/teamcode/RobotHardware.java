@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -15,7 +16,7 @@ public final class RobotHardware {
     public final DcMotorEx intakeMotor;
     public final DcMotorEx  shootMotor;
 
-    public final Servo intakeStage2Sevor;
+    public final DcMotorEx intakeStage2;
 
     public RobotHardware(HardwareMap hardwareMap) {
 
@@ -29,10 +30,12 @@ public final class RobotHardware {
         rightBackMotor  = RobotUtility.BACK_RIGHT_MOTOR.configure(hardwareMap);
 
         intakeMotor = RobotUtility.INTAKE_MOTOR.configure(hardwareMap);
+        intakeStage2 = RobotUtility.INTAKE_MOTOR2.configure(hardwareMap);
+
         shootMotor = RobotUtility.SHOOT_MOTOR.configure(hardwareMap);
 
         //Again because servos are much simpler we can just do hardware acquisition and setup here...
         //(This is what .configure looks like but for servos)
-        intakeStage2Sevor = hardwareMap.get(Servo.class, RobotUtility.INTAKE2_SERVO);
+
     }
 }

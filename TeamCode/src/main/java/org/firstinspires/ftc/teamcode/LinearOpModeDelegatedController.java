@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class LinearOpModeDelegatedController extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private OmniDriveController driveController;
+    private boolean activateFlywheel;
 
 
     @Override
@@ -33,9 +34,30 @@ public class LinearOpModeDelegatedController extends LinearOpMode {
             driveController.printHeader(telemetry);
             driveController.printMotorPowerInfo(telemetry);
 
+            if(gamepad1.aWasReleased())
+                activateFlywheel = !activateFlywheel;
+
+            if(activateFlywheel)
+                hardware.shootMotor.setVelocity(0.55f * hardware.shootMotor.getMotorType().getAchieveableMaxTicksPerSecond());
+            else
+                hardware.shootMotor.setVelocity(0f);
+
+            if(gamepad1.left_trigger_pressed) //Front Intake
+                hardware.intakeMotor.setVelocity(0.4f  * hardware.intakeMotor.getMotorType().getAchieveableMaxTicksPerSecond());
+            else if (gamepad1.dpad_down)
+                hardware.intakeMotor.setVelocity(-1f);
+            else
+                hardware.intakeMotor.setVelocity(0f);
+
+
+            if(gamepad1.right_trigger_pressed) //Midde Intake
+                hardware.intakeStage2.setVelocity(0.6f  * hardware.intakeStage2.getMotorType().getAchieveableMaxTicksPerSecond());
+            else
+                hardware.intakeStage2.setVelocity(0f);
+
             // Shooting logic and telemetry now handled by ShootingController
             //shootingController.update();
-            
+
             telemetry.update();
         }
     }
@@ -49,14 +71,14 @@ public class LinearOpModeDelegatedController extends LinearOpMode {
             speedCoefficient = RobotUtility.FAST_SPEED_COEF;
         }
 
-        double yawFromTriggers = (-gamepad1.left_trigger + gamepad1.right_trigger) * 0.85;
         OmniDriveController.DriveInput input = new OmniDriveController.DriveInput(
                 gamepad1.left_stick_y,
                 -gamepad1.left_stick_x,
-                -(gamepad1.right_stick_x + yawFromTriggers),
+                -(gamepad1.right_stick_x),
                 speedCoefficient
         );
 
         driveController.moveRobot(input);
+
     }
 }

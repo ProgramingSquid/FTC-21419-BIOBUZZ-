@@ -34,13 +34,17 @@ public class RobotUtility {
     public static final MotorDefinition INTAKE_MOTOR = new MotorDefinition(
             "intake",
             DcMotor.Direction.FORWARD,
-            true
+            false
     );
-    public static final String INTAKE2_SERVO = "intake_2"; //Servos are much simpler, most of the configuration can't be controlled by code
+    public static final MotorDefinition INTAKE_MOTOR2 = new MotorDefinition(
+            "intake-2",
+            DcMotor.Direction.FORWARD,
+            false
+    );
     public static final MotorDefinition SHOOT_MOTOR = new MotorDefinition(
             "shoot",
             DcMotor.Direction.FORWARD,
-            true
+            false
     );
 //AUTO Settings _____________________________________________________________________________________________________
     public static final String DEFAULT_WEBCAM_NAME = "Webcam 1";

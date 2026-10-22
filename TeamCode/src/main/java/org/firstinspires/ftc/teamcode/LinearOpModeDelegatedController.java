@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class LinearOpModeDelegatedController extends LinearOpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private OmniDriveController driveController;
-    private boolean activateFlywheel;
+    private boolean activateFlywheel; //Used to determine rather not to run the shooting flywheel. This is used for toggle input behavior.
 
 
     @Override
@@ -38,25 +38,24 @@ public class LinearOpModeDelegatedController extends LinearOpMode {
                 activateFlywheel = !activateFlywheel;
 
             if(activateFlywheel)
-                hardware.shootMotor.setVelocity(0.55f * hardware.shootMotor.getMotorType().getAchieveableMaxTicksPerSecond());
+                hardware.shootMotor.setVelocity(0.55f * hardware.shootMotorMaxTicks);
             else
                 hardware.shootMotor.setVelocity(0f);
 
             if(gamepad1.left_trigger_pressed) //Front Intake
-                hardware.intakeMotor.setVelocity(0.4f  * hardware.intakeMotor.getMotorType().getAchieveableMaxTicksPerSecond());
+                hardware.intakeMotor.setVelocity(0.4f  * hardware.intakeMotorMaxTicks);
             else if (gamepad1.dpad_down)
-                hardware.intakeMotor.setVelocity(-1f);
+                hardware.intakeMotor.setVelocity(-0.4f * hardware.intakeMotorMaxTicks);
             else
                 hardware.intakeMotor.setVelocity(0f);
 
 
-            if(gamepad1.right_trigger_pressed) //Midde Intake
-                hardware.intakeStage2.setVelocity(0.6f  * hardware.intakeStage2.getMotorType().getAchieveableMaxTicksPerSecond());
+            if(gamepad1.right_trigger_pressed) //Middle Intake
+                hardware.intakeStage2.setVelocity(0.6f  * hardware.intake2MotorMaxTicks);
+            else if(gamepad1.dpad_down && !gamepad1.dpad_right)
+                hardware.intakeStage2.setVelocity(-0.6f  * hardware.intake2MotorMaxTicks);
             else
                 hardware.intakeStage2.setVelocity(0f);
-
-            // Shooting logic and telemetry now handled by ShootingController
-            //shootingController.update();
 
             telemetry.update();
         }

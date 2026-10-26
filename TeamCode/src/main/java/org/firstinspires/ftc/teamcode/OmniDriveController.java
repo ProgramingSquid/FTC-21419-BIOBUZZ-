@@ -79,10 +79,10 @@ public class OmniDriveController {
     }
 
     public void moveRobot(DriveInput input) {
-        leftFrontPower = input.drive + input.strafe + input.turn;
-        rightFrontPower = input.drive - input.strafe - input.turn;
-        leftBackPower = input.drive - input.strafe + input.turn;
-        rightBackPower = input.drive + input.strafe - input.turn;
+        leftFrontPower =  -input.drive + input.strafe + input.turn;
+        rightFrontPower = -input.drive - input.strafe - input.turn;
+        leftBackPower =   -input.drive - input.strafe + input.turn;
+        rightBackPower =  -input.drive + input.strafe - input.turn;
 
         // Normalize the values so no wheel power exceeds 100%
         // This ensures that the robot maintains the desired motion.

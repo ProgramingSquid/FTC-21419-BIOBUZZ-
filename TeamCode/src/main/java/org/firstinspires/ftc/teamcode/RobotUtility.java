@@ -12,7 +12,7 @@ public class RobotUtility {
 //DRIVE MOTORS ____________________________________________________________________________________________
     public static final MotorDefinition FRONT_LEFT_MOTOR = new MotorDefinition(
             "front_left_drive",
-            DcMotor.Direction.FORWARD,
+            DcMotor.Direction.REVERSE,
             true
     );
     public static final MotorDefinition BACK_LEFT_MOTOR = new MotorDefinition(
@@ -27,13 +27,13 @@ public class RobotUtility {
     );
     public static final MotorDefinition BACK_RIGHT_MOTOR = new MotorDefinition(
             "back_right_drive",
-            DcMotor.Direction.FORWARD,
+            DcMotor.Direction.REVERSE,
             true
     );
 //Shoot Hardware_____________________________________________________________
     public static final MotorDefinition INTAKE_MOTOR = new MotorDefinition(
             "intake",
-            DcMotor.Direction.FORWARD,
+            DcMotor.Direction.REVERSE,
             false
     );
     public static final MotorDefinition INTAKE_MOTOR2 = new MotorDefinition(

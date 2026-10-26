@@ -52,7 +52,7 @@ public class LinearOpModeDelegatedController extends LinearOpMode {
 
             if(gamepad1.right_trigger_pressed) //Middle Intake
                 hardware.intakeStage2.setVelocity(0.6f  * hardware.intake2MotorMaxTicks);
-            else if(gamepad1.dpad_down && !gamepad1.dpad_right)
+            else if(gamepad1.dpad_down)
                 hardware.intakeStage2.setVelocity(-0.6f  * hardware.intake2MotorMaxTicks);
             else
                 hardware.intakeStage2.setVelocity(0f);
@@ -72,8 +72,8 @@ public class LinearOpModeDelegatedController extends LinearOpMode {
 
         OmniDriveController.DriveInput input = new OmniDriveController.DriveInput(
                 gamepad1.left_stick_y,
-                -gamepad1.left_stick_x,
-                -(gamepad1.right_stick_x),
+                gamepad1.left_stick_x,
+                gamepad1.right_stick_x,
                 speedCoefficient
         );
 
